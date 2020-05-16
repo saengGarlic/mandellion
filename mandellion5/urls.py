@@ -19,6 +19,7 @@ import dashboard.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', dashboard.views.mainpage),
     path('mainpage/', dashboard.views.mainpage, name='mainpage'),
     path('condition/', dashboard.views.condition, name='condition'),
     path('control/', dashboard.views.control, name='control'),
