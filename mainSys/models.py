@@ -1,6 +1,9 @@
 
 from django.db import models
 from datetime import datetime
+'''데이터베이스 형태 결정하기
+    
+'''
 
 class Pot(models.Model):
 
