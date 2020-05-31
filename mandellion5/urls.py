@@ -22,4 +22,5 @@ urlpatterns = [
     path('', dashboard.views.dash, name=''),
     path('dashboard/', include('dashboard.urls')),
     path('accounts/', include('accounts.urls')),
+    path('potreg', include('potRegister.urls')),
 ]

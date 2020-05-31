@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
 from django.views.generic import UpdateView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
+
+#from django.contrib.auth.decorators import login_required
+
 import datetime
 import random
 
@@ -10,32 +13,41 @@ import random
 # Create your views here.
 
 
-
+#@login_required
 def dash(request):
-
-    if request.session.get('accessToken', default=True):
-        sysUpDate = '12apr20'
-        temperature = random.randint(15, 30)
-        ctxt = {
-            'sysUpDate': sysUpDate,
-            'temperature': temperature
-        }
-        return render(request, 'paper_dashboard/dash.html', context=ctxt)
+    accesstoken = request.COOKIES.get('accessToken')
+    if accesstoken is not None:
+        if request.session.get('accessToken') == accesstoken:
+            username = request.session.get('userName')
+            sysUpDate = str(datetime.datetime.now())
+            temperature = random.randint(15, 30)
+            ctxt = {
+                'sysUpDate': sysUpDate,
+                'temperature': temperature,
+                'user': username
+            }
+            return render(request, 'paper_dashboard/dash.html', context=ctxt)
 
     else:
         return redirect('login')
 
 
 def condition(request):
-    if request.session.get('accessToken', default=False):
-        return render(request, 'paper_dashboard/condition.html')
+    accesstoken = request.COOKIES.get('accessToken')
+    if accesstoken is not None:
+        if request.session.get('accessToken') == accesstoken:
+            username = request.session.get('userName')
+            return render(request, 'paper_dashboard/condition.html', context={'user':username})
 
     else:
         return redirect('login')
 
 def control(request):
-    if request.session.get('accessToken', default=False):
-        return render(request, 'paper_dashboard/control.html')
+    accesstoken = request.COOKIES.get('accessToken')
+    if accesstoken is not None:
+        if request.session.get('accessToken') == accesstoken:
+            username = request.session.get('userName')
+            return render(request, 'paper_dashboard/control.html', context={'user':username})
 
     else:
         return redirect('login')

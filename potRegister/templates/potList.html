@@ -1,0 +1,100 @@
+<!--
+=========================================================
+* Paper Dashboard 2 - v2.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% extends 'paper_dashboard/templatebase.html' %}
+{% load static %}
+
+  {% block mainTitle %}
+    Condition
+  {% endblock %}
+
+  {% block sidebar %}
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <li>
+        <a href="{% url 'dash' %}">
+          <i class="nc-icon nc-bank"></i>
+          <p>Dashboard</p>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'condition' %}">
+          <!--<i class="nc-icon nc-diamond"></i>-->
+          <p>&emsp;&emsp;Codition</p>
+        </a>
+      </li>
+      <li >
+        <a href="{% url 'control' %}">
+          <!-- <i class="nc-icon nc-pin-3"></i>-->
+          <p>&emsp;&emsp;Control</p>
+        </a>
+      </li>
+    </ul>
+  </div>
+  {% endblock %}
+
+  {% block mainContents %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+
+              <div class="card-header">
+                <h4 class="card-title"> Pot Registry</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+
+                    <thead class=" text-primary">
+                      <th>
+                        Date
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Owner
+                      </th>
+                      <th>
+                        Description
+                      </th>
+
+                    </thead>
+
+                    <tbody>
+                    {% for Pot in pots %}
+                      <tr>
+                        <td>{{Pot.regDate}}</td>
+                        <td>{{Pot.potName}}</td>
+                        <td>{{Pot.owner}}</td>
+                        <td>{{Pot.description}}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>
+
+
+  {% endblock %}
