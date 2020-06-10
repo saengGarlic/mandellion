@@ -28,6 +28,8 @@ def dash(request):
             }
             return render(request, 'paper_dashboard/dash.html', context=ctxt)
 
+        else: return redirect('login')
+
     else:
         return redirect('login')
 
@@ -39,6 +41,9 @@ def condition(request):
             username = request.session.get('userName')
             return render(request, 'paper_dashboard/condition.html', context={'user':username})
 
+        else:
+            return redirect('login')
+
     else:
         return redirect('login')
 
@@ -48,6 +53,9 @@ def control(request):
         if request.session.get('accessToken') == accesstoken:
             username = request.session.get('userName')
             return render(request, 'paper_dashboard/control.html', context={'user':username})
+
+        else:
+            return redirect('login')
 
     else:
         return redirect('login')

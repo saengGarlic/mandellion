@@ -18,7 +18,7 @@ def saveSession(request, accesstoken, createdtime, username):
 
 def signup(request):
     if request.method == "POST":
-        if (request.POST["username"]!= '')&(request.POST["password1"]!= '')&(request.POST["password2"]!= ''):
+        if (request.POST["username"] is not None)&(request.POST["password1"] is not None)&(request.POST["password2"] is not None):
             if request.POST["password1"] == request.POST["password2"]:
                 user = User.objects.create_user(username=request.POST["username"], password=request.POST["password2"])
 
@@ -43,10 +43,10 @@ def login(request):
 
             accesstoken = jwt.encode({'username': username}, nowstr, algorithm='HS256').decode('UTF-8')
             saveSession(request, accesstoken, nowstr, username)
-            res = HttpResponse({'success': True})
+            res = JsonResponse({'success': True})
             res.set_cookie('accessToken', accesstoken)
 
-            return res  #render(request, 'login.html', {'success': res})
+            return res
         else:
             return render(request, 'login.html', {'error': 'username or password is incorrect'})
     else:
